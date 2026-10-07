@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rifa solidaria por los ojitos de Bigotes</title>
+<style>
+@font-face{font-family:"Bricolage Grotesque";src:url(fonts/bricolage-grotesque.woff2) format("woff2");font-weight:200 800;font-display:swap}@font-face{font-family:"Shantell Sans";src:url(fonts/shantell-sans.woff2) format("woff2");font-weight:300 800;font-display:swap}
+:root{--ink:#263238;--muted:#667085;--primary:#7b4b2a;--accent:#e9a23b;--soft:#fff8ef;--ok:#238636;--danger:#c0392b;--line:#eadfd3}*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#fffaf5,#fff);color:var(--ink)}button,input{font:inherit}.wrap{max-width:1050px;margin:auto;padding:22px}.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:28px;align-items:center}.card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 12px 35px #5b3b1b12}.copy{padding:30px}.eyebrow{display:inline-block;background:#fff0d9;color:#8a5817;font-weight:800;padding:7px 12px;border-radius:999px;font-size:13px}.copy h1{font-size:clamp(32px,5vw,56px);line-height:1.02;margin:15px 0 14px}.copy p{font-size:17px;line-height:1.65;color:#53606b}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.fact{background:var(--soft);padding:15px;border-radius:15px}.fact b{display:block;font-size:20px;color:var(--primary)}.fact span{font-size:12px;color:var(--muted)}.photo{overflow:hidden;aspect-ratio:1024/1820}.photo canvas{display:block;width:100%;height:auto}.section{margin-top:28px;padding:25px}.section h2{margin-top:0}.progress{height:12px;background:#eee5dc;border-radius:999px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#d99029,#7b4b2a);transition:.25s}.summary{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:14px 0 20px;flex-wrap:wrap}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.dot{width:12px;height:12px;border-radius:4px;display:inline-block;vertical-align:-2px;margin-right:5px}.available{background:#fff;border:1px solid #d8cec4}.sold{background:#f4d9d5}.selected{background:#ffe1a8}.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}.num{border:1px solid #ded5ce;background:#fff;border-radius:10px;padding:11px 4px;font-weight:800;cursor:pointer;transition:.15s}.num:hover{transform:translateY(-2px);box-shadow:0 5px 12px #00000010}.num.sold{background:#f5dfdc;border-color:#e9c4be;color:#9a4338}.num:disabled{cursor:pointer}.notice{background:#fff8e8;border:1px solid #f1d59d;padding:15px;border-radius:15px;color:#765314;line-height:1.5}.admin{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:800;cursor:pointer}.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#f1ebe5;color:#493a30}.btn.danger{background:#f9e1de;color:#9a3328}.small{font-size:12px;color:var(--muted)}.modal-backdrop{position:fixed;inset:0;background:#17202b99;backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal-backdrop.show{display:flex}.modal{width:min(460px,100%);background:#fff;border-radius:22px;padding:25px;box-shadow:0 25px 80px #0005;animation:pop .16s ease-out}@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}.modal h3{margin:0 0 8px;font-size:25px}.modal p{color:#59636d;line-height:1.55}.modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:20px}.field{margin:13px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input{width:100%;padding:12px;border:1px solid #d9d0c9;border-radius:10px;outline:none}.field input:focus{border-color:#b17b46;box-shadow:0 0 0 3px #b17b4620}footer{text-align:center;padding:30px;color:var(--muted);font-size:13px}@media(max-width:760px){.hero{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.grid{grid-template-columns:repeat(5,1fr)}.num{padding:13px 3px}.copy{padding:24px}.section{padding:20px}}
+</style></head>
+<body>
+<main class="wrap">
+<section class="hero">
+<div class="card copy">
+<span class="eyebrow">🐾 Rifa solidaria</span>
+<h1>Por los ojitos de Bigotes</h1>
+<p>Bigotes necesita nuestra ayuda. Tiene cataratas desde hace aproximadamente dos años y sus ojitos también han presentado irritación. La rifa busca reunir el dinero necesario para realizar sus exámenes oftalmológicos y conocer qué está causando su pérdida de visión.</p>
+<p>Con solo una boleta puedes aportar a que Bigotes reciba la atención que necesita. ❤️</p>
+<div class="facts"><div class="fact"><b>$15.000</b><span>por número</span></div><div class="fact"><b>$500.000</b><span>premio</span></div><div class="fact"><b>14 nov.</b><span>día del sorteo</span></div></div>
+</div>
+<div class="card photo" id="flyerPreview"></div>
+</section>
+<section class="card section">
+<h2>Elige tu número</h2>
+<div class="summary"><strong><span id="count">0</span> de 100 números vendidos</strong><div class="legend"><span><i class="dot available"></i>Disponible</span><span><i class="dot sold"></i>Vendido</span></div></div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div id="grid" class="grid" style="margin-top:20px"></div>
+<div class="notice" style="margin-top:22px"><b>¿Cómo participar?</b><br>Selecciona un número disponible y registra el nombre y celular de la persona que lo compra. Los datos quedan guardados en este dispositivo.</div>
+<div class="admin"><button class="btn primary" id="imageDownload">📸 Descargar imagen actualizada</button><button class="btn secondary" id="csv">Descargar informe CSV</button><button class="btn secondary" id="json">Respaldar datos JSON</button><button class="btn danger" id="clear">Borrar todos los datos</button></div>
+<p class="small">Los números y compradores se almacenan localmente en el navegador mediante localStorage. Si publicas esta página en GitHub Pages, cada dispositivo tendrá su propio almacenamiento.</p>
+</section>
+</main>
+<footer>Gracias por ayudar a Bigotes 🐾</footer>
+<div id="backdrop" class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true">
+<h3 id="modalTitle"></h3><p id="modalText"></p><div id="modalBody"></div><div class="modal-actions" id="modalActions"></div>
+</div></div>
+<script>
+const KEY='rifa-bigotes-v2'; let data=JSON.parse(localStorage.getItem(KEY)||'{}');
+const grid=document.getElementById('grid'), count=document.getElementById('count'), bar=document.getElementById('bar'), backdrop=document.getElementById('backdrop');
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function render(){grid.innerHTML='';let sold=Object.keys(data).length;count.textContent=sold;bar.style.width=sold+'%';for(let i=0;i<100;i++){let n=String(i).padStart(2,'0'),b=document.createElement('button');b.className='num '+(data[n]?'sold':'');b.textContent=n;b.title=data[n]?'Vendido':'Disponible';b.onclick=()=>data[n]?soldModal(n):buyModal(n);grid.appendChild(b)}refreshPreview()}
+function show(title,text,body='',actions=[]){document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').innerHTML=text;document.getElementById('modalBody').innerHTML=body;let a=document.getElementById('modalActions');a.innerHTML='';actions.forEach(x=>{let b=document.createElement('button');b.className='btn '+(x.kind||'secondary');b.textContent=x.label;b.onclick=()=>x.fn();a.appendChild(b)});backdrop.classList.add('show')}
+function close(){backdrop.classList.remove('show')}
+backdrop.onclick=e=>{if(e.target===backdrop)close()};document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+function buyModal(n){show('Número '+n,'Está disponible. Registra los datos de quien compra este número.',`<div class="field"><label>Nombre</label><input id="buyerName" maxlength="100" autocomplete="name"></div><div class="field"><label>Celular</label><input id="buyerPhone" maxlength="30" inputmode="tel" autocomplete="tel"></div>`,[{label:'Cancelar',fn:close},{label:'Reservar número',kind:'primary',fn:()=>{let name=document.getElementById('buyerName').value.trim(),phone=document.getElementById('buyerPhone').value.trim();if(!name||!phone){alert('Completa nombre y celular.');return}data[n]={name,phone,createdAt:new Date().toISOString()};close();save()}}]);setTimeout(()=>document.getElementById('buyerName')?.focus(),50)}
+function soldModal(n){let x=data[n];show('Número '+n,'Este número ya está vendido.',`<p style="margin:8px 0"><b>Comprador:</b> ${esc(x.name)}<br><b>Celular:</b> ${esc(x.phone)}</p>`,[{label:'Cancelar',fn:close},{label:'Editar comprador',kind:'primary',fn:()=>editModal(n)},{label:'Desmarcar',kind:'danger',fn:()=>unsoldConfirm(n)}])}
+function editModal(n){let x=data[n];show('Editar número '+n,'Actualiza los datos del comprador.',`<div class="field"><label>Nombre</label><input id="buyerName" maxlength="100" value="${attr(x.name)}"></div><div class="field"><label>Celular</label><input id="buyerPhone" maxlength="30" inputmode="tel" value="${attr(x.phone)}"></div>`,[{label:'Cancelar',fn:close},{label:'Guardar cambios',kind:'primary',fn:()=>{let name=document.getElementById('buyerName').value.trim(),phone=document.getElementById('buyerPhone').value.trim();if(!name||!phone){alert('Completa nombre y celular.');return}data[n]={...x,name,phone,updatedAt:new Date().toISOString()};close();save()}}]);}
+function unsoldConfirm(n){show('¿Desmarcar número '+n+'?','El número volverá a estar disponible y se eliminarán los datos del comprador de este dispositivo.', '',[{label:'No, conservar',fn:()=>soldModal(n)},{label:'Sí, desmarcar',kind:'danger',fn:()=>{delete data[n];close();save()}}])}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function attr(s){return esc(s)}
+function download(name,content,type){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href)}
+// Fuentes del flyer: vienen en la carpeta fonts/ para que funcionen aunque no haya internet.
+const FLYER_FONTS=['800 100px "Bricolage Grotesque"','700 30px "Bricolage Grotesque"','500 20px "Bricolage Grotesque"','500 20px "Shantell Sans"','600 24px "Shantell Sans"','700 30px "Shantell Sans"'];
+// Bigotes viene recortado (fondo transparente) en la imagen original. Se copia 1:1, sin filtros ni escalado,
+// para que sus cataratas se vean tal cual; solo se dejan fuera los adornos que traía alrededor.
+const DOG={sx:0,sy:0,w:576,h:614,dx:-6,dy:26,
+  hide:[[125,25,36,58],[86,66,47,37],[64,120,53,28],[24,216,42,60],[444,22,63,69],[524,34,52,121],[548,188,28,75]]};
+async function createFlyer(){
+  const img=new Image();
+  img.src='Rifa solidaria por los ojitos de Bigotes.png';
+  await img.decode();
+  try{await Promise.all(FLYER_FONTS.map(f=>document.fonts.load(f)))}catch(e){}
+  // Formato 9:16, cómodo para chats y estados de WhatsApp.
+  const W=1024,H=1820,canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');
+  canvas.width=W;canvas.height=H;
+  const C={sun:'#f7b538',sunLight:'#fbc964',ink:'#1f2a5c',inkSoft:'#4a5480',berry:'#e0436a',blush:'#fcdfe4',paper:'#fff3dc',sheet:'#fffcf5',cream:'#fff8ea'};
+  const TITLE='"Bricolage Grotesque","Arial Rounded MT Bold",Arial,sans-serif',HAND='"Shantell Sans","Trebuchet MS",sans-serif';
+  const TAU=Math.PI*2;
+  function txt(t,x,y,{size=24,weight=500,family=TITLE,color=C.ink,align='left',spacing=0}={}){
+    ctx.font=`${weight} ${size}px ${family}`;ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='alphabetic';
+    if('letterSpacing' in ctx)ctx.letterSpacing=spacing+'px';
+    ctx.fillText(t,x,y);
+    if('letterSpacing' in ctx)ctx.letterSpacing='0px';
+  }
+  function width(t,size,weight,family){ctx.font=`${weight} ${size}px ${family}`;return ctx.measureText(t).width}
+  function fit(t,max,size,weight,family){const w=width(t,size,weight,family);return w>max?Math.floor(size*max/w):size}
+  // Párrafo con tramos de distinto peso o color; devuelve dónde terminó la última palabra.
+  function rich(parts,x,y,max,size,line,draw=true){
+    let cx=x;
+    for(const p of parts)for(const word of p.text.split(' ')){
+      const w=width(word,size,p.weight,p.family);
+      if(cx>x&&cx+w>x+max){y+=line;cx=x}
+      if(draw)txt(word,cx,y,{size,weight:p.weight,family:p.family,color:p.color});
+      cx+=w+width(' ',size,p.weight,p.family);
+    }
+    return {x:cx,y};
+  }
+  function turn(x,y,deg,draw){ctx.save();ctx.translate(x,y);ctx.rotate(deg*Math.PI/180);draw();ctx.restore()}
+  function paw(x,y,s,color,deg=0){turn(x,y,deg,()=>{
+    ctx.fillStyle=color;ctx.beginPath();ctx.ellipse(0,s*.32,s*.4,s*.32,0,0,TAU);ctx.fill();
+    [[-.46,-.14,-.5],[-.17,-.44,-.15],[.17,-.44,.15],[.46,-.14,.5]].forEach(([a,b,r])=>{ctx.beginPath();ctx.ellipse(a*s,b*s,s*.15,s*.19,r,0,TAU);ctx.fill()});
+  })}
+  function heart(x,y,s,color,deg=0){turn(x,y,deg,()=>{
+    ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(0,s*.42);
+    ctx.bezierCurveTo(-s*1.05,-s*.2,-s*.5,-s*.95,0,-s*.42);ctx.bezierCurveTo(s*.5,-s*.95,s*1.05,-s*.2,0,s*.42);ctx.fill();
+  })}
+  function sparkle(x,y,s,color){
+    ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y-s);
+    ctx.quadraticCurveTo(x,y,x+s,y);ctx.quadraticCurveTo(x,y,x,y+s);ctx.quadraticCurveTo(x,y,x-s,y);ctx.quadraticCurveTo(x,y,x,y-s);ctx.fill();
+  }
+  function wavyBand(top,bottom,amp,len,phase,color,waveOn){
+    ctx.fillStyle=color;ctx.beginPath();
+    if(waveOn==='top'){ctx.moveTo(0,bottom);for(let x=0;x<=W;x+=8)ctx.lineTo(x,top+Math.sin(x/len*TAU+phase)*amp);ctx.lineTo(W,bottom)}
+    else{ctx.moveTo(0,top);ctx.lineTo(W,top);for(let x=W;x>=0;x-=8)ctx.lineTo(x,bottom+Math.sin(x/len*TAU+phase)*amp)}
+    ctx.closePath();ctx.fill();
+  }
+
+  // 1. Cielo soleado: rayos que salen de la cabeza de Bigotes.
+  const cx=DOG.dx+290,cy=DOG.dy+200;
+  ctx.fillStyle=C.sun;ctx.fillRect(0,0,W,700);
+  for(let i=0;i<32;i+=2){ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,1500,i/32*TAU,(i+1)/32*TAU);ctx.closePath();ctx.fillStyle=C.sunLight;ctx.fill()}
+  const fade=ctx.createRadialGradient(cx,cy,180,cx,cy,760);
+  fade.addColorStop(0,'rgba(247,181,56,0)');fade.addColorStop(1,'rgba(247,181,56,.92)');
+  ctx.fillStyle=fade;ctx.fillRect(0,0,W,700);
+  sparkle(64,74,20,C.cream);sparkle(108,142,11,C.cream);sparkle(40,330,13,C.cream);
+  heart(42,250,30,C.berry,-14);
+  paw(1000,612,30,'rgba(31,42,92,.12)',18);
+
+  // 2. Bigotes, intacto.
+  ctx.save();
+  const area=new Path2D();
+  area.rect(DOG.dx,DOG.dy,DOG.w,DOG.h);
+  DOG.hide.forEach(([x,y,w,h])=>area.rect(DOG.dx+x,DOG.dy+y,w,h));
+  ctx.clip(area,'evenodd');
+  ctx.drawImage(img,DOG.sx,DOG.sy,DOG.w,DOG.h,DOG.dx,DOG.dy,DOG.w,DOG.h);
+  ctx.restore();
+
+  // 3. Título y la historia de Bigotes.
+  const X=588,COL=W-X-30;
+  turn(X+128,62,-4,()=>{
+    ctx.fillStyle=C.berry;ctx.beginPath();ctx.roundRect(-128,-26,256,52,26);ctx.fill();
+    txt('RIFA SOLIDARIA',0,9,{size:23,weight:800,color:C.cream,align:'center',spacing:2});
+  });
+  txt('Por los ojitos de',X,150,{size:40,weight:600,family:HAND});
+  const big=fit('Bigotes',COL-44,132,800,TITLE);
+  turn(X+COL/2-8,246,-2,()=>{ctx.fillStyle=C.cream;ctx.beginPath();ctx.roundRect(-COL/2,-14,COL-6,34,17);ctx.fill()});
+  txt('Bigotes',X-4,256,{size:big,weight:800});
+  heart(X+width('Bigotes',big,800,TITLE)+16,182,30,C.berry,12);
+  const motto='Cada número cuenta',mottoW=width(motto,28,600,HAND);
+  txt(motto,X,310,{size:28,weight:600,family:HAND});
+  ctx.strokeStyle=C.berry;ctx.lineWidth=5;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(X+mottoW*.35,326);ctx.quadraticCurveTo(X+mottoW*.7,318,X+mottoW+6,320);ctx.stroke();
+  rich([
+    {text:'Bigotes',weight:800,family:TITLE,color:C.ink},
+    {text:'es un compañero fiel, cariñoso y lleno de vida. Tiene 7 años y, poco a poco, ha ido perdiendo la visión debido a unas cataratas que han aparecido en sus ojos desde hace 2 años. Además, sus ojitos se mantienen irritados por un problema que aún estamos tratando de entender.',weight:500,family:TITLE,color:C.ink}
+  ],X,366,COL,21,30);
+
+  // 4. Cinta con los datos de la rifa (Bigotes se apoya sobre ella).
+  ctx.fillStyle=C.paper;ctx.fillRect(0,640,W,H-640);
+  wavyBand(640,806,9,260,.6,C.ink,'bottom');
+  txt('Valor por número',38,690,{size:21,weight:500,family:HAND,color:C.cream});
+  txt('$15.000',36,752,{size:54,weight:800,color:C.sunLight});
+  paw(298,724,26,C.sun,-12);
+  const dateSize=fit('14 de noviembre',292,38,800,TITLE);
+  txt('Fecha del sorteo',338,690,{size:21,weight:500,family:HAND,color:C.cream});
+  txt('14 de noviembre',336,736,{size:dateSize,weight:800,color:C.cream});
+  txt('de 2026',336,778,{size:dateSize,weight:800,color:C.cream});
+  turn(824,716,-3,()=>{
+    const w=330,h=158;
+    ctx.save();ctx.shadowColor='rgba(20,24,60,.35)';ctx.shadowBlur=18;ctx.shadowOffsetY=8;
+    ctx.fillStyle=C.berry;ctx.beginPath();ctx.roundRect(-w/2,-h/2,w,h,16);ctx.fill();ctx.restore();
+    ctx.fillStyle=C.ink;[-w/2,w/2].forEach(x=>{ctx.beginPath();ctx.arc(x,0,15,0,TAU);ctx.fill()});
+    ctx.strokeStyle='rgba(255,248,234,.75)';ctx.lineWidth=3;ctx.setLineDash([8,8]);
+    ctx.beginPath();ctx.moveTo(-w/2+78,-h/2+16);ctx.lineTo(-w/2+78,h/2-16);ctx.stroke();ctx.setLineDash([]);
+    heart(-w/2+40,0,32,C.cream,-8);
+    txt('Premio',-w/2+100,-18,{size:24,weight:600,family:HAND,color:C.cream});
+    txt('$500.000',-w/2+97,42,{size:fit('$500.000',w-120,62,800,TITLE),weight:800,color:C.cream});
+  });
+
+  // 5. Para qué es la rifa: una nota escrita a mano.
+  const note=[
+    {text:'Esta rifa es una forma de ayudarlo a tener los exámenes que necesita para cuidar su vista y descubrir la causa de sus cataratas.',weight:600,family:HAND,color:C.ink},
+    {text:'¡Tu apoyo hace la diferencia!',weight:700,family:HAND,color:C.berry}
+  ];
+  const NX=36,NW=W-72,NY=842,padL=84,size=25,line=37;
+  const lines=rich(note,0,0,NW-padL-34,size,line,false).y/line+1,NH=lines*line+46;
+  turn(NX+NW/2,NY+NH/2,-1,()=>{
+    ctx.fillStyle=C.blush;ctx.beginPath();ctx.roundRect(-NW/2,-NH/2,NW,NH,26);ctx.fill();
+    heart(-NW/2+44,-NH/2+44,34,C.berry,-10);
+    const end=rich(note,-NW/2+padL,-NH/2+50,NW-padL-34,size,line);
+    heart(end.x+8,end.y-9,20,C.berry,10);
+  });
+
+  // 6. Números: una hoja pegada con cinta.
+  const sold=Array.from({length:100},(_,i)=>String(i).padStart(2,'0')).filter(n=>data[n]).length;
+  const T=NY+NH+78;
+  txt('Números de la rifa',36,T,{size:52,weight:800});
+  txt(`${sold} de 100 vendidos`,988,T-16,{size:24,weight:700,align:'right'});
+  ctx.fillStyle=C.cream;ctx.strokeStyle=C.ink;ctx.lineWidth=2;
+  ctx.beginPath();ctx.roundRect(748,T-2,240,16,8);ctx.fill();ctx.stroke();
+  if(sold){ctx.fillStyle=C.berry;ctx.beginPath();ctx.roundRect(750,T,Math.max(12,236*sold/100),12,6);ctx.fill()}
+  const legend=(x,isSold,label)=>{
+    ctx.beginPath();ctx.roundRect(x,T+22,34,18,9);
+    if(isSold){ctx.fillStyle=C.berry;ctx.fill()}else{ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle='rgba(31,42,92,.45)';ctx.lineWidth=2;ctx.stroke()}
+    txt(label,x+42,T+38,{size:20,weight:500,family:HAND,color:C.inkSoft});
+  };
+  legend(38,false,'Disponible');legend(212,true,'Vendido');
+  const SX=28,SY=T+64,SW=968,SH=512;
+  turn(SX+SW/2,SY+SH/2,-.7,()=>{
+    ctx.save();ctx.shadowColor='rgba(120,74,10,.22)';ctx.shadowBlur=26;ctx.shadowOffsetY=10;
+    ctx.fillStyle=C.sheet;ctx.beginPath();ctx.roundRect(-SW/2,-SH/2,SW,SH,10);ctx.fill();ctx.restore();
+    const gx=-SW/2+(SW-(9*94+80))/2,gy=-SH/2+14;
+    for(let i=0;i<100;i++){
+      const n=String(i).padStart(2,'0'),x=gx+(i%10)*94,y=gy+Math.floor(i/10)*49,isSold=Boolean(data[n]);
+      ctx.beginPath();ctx.roundRect(x,y,80,40,20);
+      if(isSold){ctx.fillStyle=C.berry;ctx.fill()}
+      else{ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle='rgba(31,42,92,.3)';ctx.lineWidth=2;ctx.stroke()}
+      txt(n,x+(isSold?34:40),y+29,{size:25,weight:700,color:isSold?C.cream:C.ink,align:'center'});
+      if(isSold)heart(x+62,y+20,15,C.cream);
+    }
+    ctx.fillStyle='rgba(251,201,100,.8)';
+    turn(-SW/2+30,-SH/2-2,-14,()=>ctx.fillRect(-44,-13,88,26));
+    turn(SW/2-30,-SH/2-2,12,()=>ctx.fillRect(-44,-13,88,26));
+  });
+
+  // 7. Cierre.
+  wavyBand(H-136,H,10,300,2.1,C.ink,'top');
+  const thanks='¡Gracias por ser parte de esta causa!',love='Bigotes te lo agradece con todo su corazón';
+  txt(thanks,36,H-70,{size:36,weight:700,family:HAND,color:C.cream});
+  heart(36+width(thanks,36,700,HAND)+24,H-82,26,C.berry,10);
+  txt(love,36,H-30,{size:23,weight:500,family:HAND,color:C.sunLight});
+  heart(36+width(love,23,500,HAND)+18,H-38,17,C.sunLight,-8);
+  paw(956,H-84,46,C.sun,16);
+  txt(`Actualizado: ${new Date().toLocaleDateString('es-CO',{timeZone:'America/Bogota'})}`,988,H-16,{size:14,weight:500,color:'rgba(255,248,234,.7)',align:'right'});
+  return canvas;
+}
+// La página muestra el mismo flyer que se descarga, siempre al día con los números vendidos.
+let previewRun=0;
+function refreshPreview(){
+  const run=++previewRun,box=document.getElementById('flyerPreview');
+  createFlyer().then(canvas=>{
+    if(run!==previewRun)return;
+    canvas.setAttribute('role','img');canvas.setAttribute('aria-label','Vista previa del flyer de la rifa de Bigotes');
+    box.replaceChildren(canvas);
+  }).catch(()=>{});
+}
+document.getElementById('imageDownload').onclick=async()=>{
+  const button=document.getElementById('imageDownload');button.disabled=true;button.textContent='Generando imagen…';
+  try{
+    const canvas=await createFlyer();
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+    if(!blob)throw new Error('No se pudo generar el PNG');
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='rifa-bigotes-numeros-actualizados.png';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch(e){alert('No se pudo generar el flyer. Verifica que la imagen de Bigotes esté junto al index.html.')}
+  finally{button.disabled=false;button.textContent='📸 Descargar imagen actualizada'}
+};
+document.getElementById('csv').onclick=()=>{let rows=[['Numero','Nombre','Celular','Fecha registro']];Object.entries(data).sort().forEach(([n,x])=>rows.push([n,x.name,x.phone,x.createdAt||'']));download('rifa-bigotes-informe.csv',rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')};
+document.getElementById('json').onclick=()=>download('rifa-bigotes-respaldo.json',JSON.stringify(data,null,2),'application/json');
+document.getElementById('clear').onclick=()=>show('Borrar todos los datos','Esta acción eliminará todos los números vendidos y compradores guardados en este navegador. <b>No se puede deshacer.</b>','',[{label:'Cancelar',fn:close},{label:'Sí, borrar todo',kind:'danger',fn:()=>{data={};close();save()}}]);
+render();
+</script></body></html>
