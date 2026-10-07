@@ -15,6 +15,7 @@
 <h1>Por los ojitos de Bigotes</h1>
 <p>Bigotes necesita nuestra ayuda. Tiene cataratas desde hace aproximadamente dos años y sus ojitos también han presentado irritación. La rifa busca reunir el dinero necesario para realizar sus exámenes oftalmológicos y conocer qué está causando su pérdida de visión.</p>
 <p>Con solo una boleta puedes aportar a que Bigotes reciba la atención que necesita. ❤️</p>
+<p><b>Para comprar</b>, consigna por Nequi al <b>322 319 1629</b> o a la llave <b>@nequiand361</b>.</p>
 <div class="facts"><div class="fact"><b>$15.000</b><span>por número</span></div><div class="fact"><b>$500.000</b><span>premio</span></div><div class="fact"><b>14 nov.</b><span>día del sorteo</span></div></div>
 </div>
 <div class="card photo" id="flyerPreview"></div>
@@ -145,7 +146,7 @@ async function createFlyer(){
 
   // 4. Cinta con los datos de la rifa (Bigotes se apoya sobre ella).
   ctx.fillStyle=C.paper;ctx.fillRect(0,640,W,H-640);
-  wavyBand(640,806,9,260,.6,C.ink,'bottom');
+  wavyBand(640,902,9,260,.6,C.ink,'bottom');
   txt('Valor por número',38,690,{size:21,weight:500,family:HAND,color:C.cream});
   txt('$15.000',36,752,{size:54,weight:800,color:C.sunLight});
   paw(298,724,26,C.sun,-12);
@@ -165,23 +166,35 @@ async function createFlyer(){
     txt('$500.000',-w/2+97,42,{size:fit('$500.000',w-120,62,800,TITLE),weight:800,color:C.cream});
   });
 
+  // Dónde consignar: en la misma cinta, debajo del precio.
+  ctx.strokeStyle='rgba(255,248,234,.3)';ctx.lineWidth=2;ctx.setLineDash([6,8]);
+  ctx.beginPath();ctx.moveTo(38,802);ctx.lineTo(628,802);ctx.stroke();ctx.setLineDash([]);
+  txt('Para comprar,',38,840,{size:21,weight:500,family:HAND,color:C.cream});
+  txt('consigna a:',38,866,{size:21,weight:500,family:HAND,color:C.cream});
+  txt('Nequi',232,834,{size:21,weight:500,family:HAND,color:C.cream});
+  txt('322 319 1629',230,872,{size:38,weight:800,color:C.sunLight});
+  const keyX=230+width('322 319 1629',38,800,TITLE)+58;
+  txt('o',keyX-36,868,{size:22,weight:600,family:HAND,color:C.cream});
+  txt('Llave',keyX+2,834,{size:21,weight:500,family:HAND,color:C.cream});
+  txt('@nequiand361',keyX,872,{size:38,weight:800,color:C.sunLight});
+
   // 5. Para qué es la rifa: una nota escrita a mano.
   const note=[
     {text:'Esta rifa es una forma de ayudarlo a tener los exámenes que necesita para cuidar su vista y descubrir la causa de sus cataratas.',weight:600,family:HAND,color:C.ink},
     {text:'¡Tu apoyo hace la diferencia!',weight:700,family:HAND,color:C.berry}
   ];
-  const NX=36,NW=W-72,NY=842,padL=84,size=25,line=37;
-  const lines=rich(note,0,0,NW-padL-34,size,line,false).y/line+1,NH=lines*line+46;
+  const NX=36,NW=W-72,NY=924,padL=84,size=24,line=35;
+  const lines=rich(note,0,0,NW-padL-34,size,line,false).y/line+1,NH=lines*line+44;
   turn(NX+NW/2,NY+NH/2,-1,()=>{
     ctx.fillStyle=C.blush;ctx.beginPath();ctx.roundRect(-NW/2,-NH/2,NW,NH,26);ctx.fill();
     heart(-NW/2+44,-NH/2+44,34,C.berry,-10);
-    const end=rich(note,-NW/2+padL,-NH/2+50,NW-padL-34,size,line);
+    const end=rich(note,-NW/2+padL,-NH/2+48,NW-padL-34,size,line);
     heart(end.x+8,end.y-9,20,C.berry,10);
   });
 
   // 6. Números: una hoja pegada con cinta.
   const sold=Array.from({length:100},(_,i)=>String(i).padStart(2,'0')).filter(n=>data[n]).length;
-  const T=NY+NH+78;
+  const T=NY+NH+66;
   txt('Números de la rifa',36,T,{size:52,weight:800});
   txt(`${sold} de 100 vendidos`,988,T-16,{size:24,weight:700,align:'right'});
   ctx.fillStyle=C.cream;ctx.strokeStyle=C.ink;ctx.lineWidth=2;
@@ -193,18 +206,18 @@ async function createFlyer(){
     txt(label,x+42,T+38,{size:20,weight:500,family:HAND,color:C.inkSoft});
   };
   legend(38,false,'Disponible');legend(212,true,'Vendido');
-  const SX=28,SY=T+64,SW=968,SH=512;
+  const SX=28,SY=T+56,SW=968,SH=462;
   turn(SX+SW/2,SY+SH/2,-.7,()=>{
     ctx.save();ctx.shadowColor='rgba(120,74,10,.22)';ctx.shadowBlur=26;ctx.shadowOffsetY=10;
     ctx.fillStyle=C.sheet;ctx.beginPath();ctx.roundRect(-SW/2,-SH/2,SW,SH,10);ctx.fill();ctx.restore();
     const gx=-SW/2+(SW-(9*94+80))/2,gy=-SH/2+14;
     for(let i=0;i<100;i++){
-      const n=String(i).padStart(2,'0'),x=gx+(i%10)*94,y=gy+Math.floor(i/10)*49,isSold=Boolean(data[n]);
-      ctx.beginPath();ctx.roundRect(x,y,80,40,20);
+      const n=String(i).padStart(2,'0'),x=gx+(i%10)*94,y=gy+Math.floor(i/10)*44,isSold=Boolean(data[n]);
+      ctx.beginPath();ctx.roundRect(x,y,80,38,19);
       if(isSold){ctx.fillStyle=C.berry;ctx.fill()}
       else{ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle='rgba(31,42,92,.3)';ctx.lineWidth=2;ctx.stroke()}
-      txt(n,x+(isSold?34:40),y+29,{size:25,weight:700,color:isSold?C.cream:C.ink,align:'center'});
-      if(isSold)heart(x+62,y+20,15,C.cream);
+      txt(n,x+(isSold?34:40),y+28,{size:25,weight:700,color:isSold?C.cream:C.ink,align:'center'});
+      if(isSold)heart(x+62,y+19,15,C.cream);
     }
     ctx.fillStyle='rgba(251,201,100,.8)';
     turn(-SW/2+30,-SH/2-2,-14,()=>ctx.fillRect(-44,-13,88,26));
@@ -212,14 +225,14 @@ async function createFlyer(){
   });
 
   // 7. Cierre.
-  wavyBand(H-136,H,10,300,2.1,C.ink,'top');
+  wavyBand(H-122,H,10,300,2.1,C.ink,'top');
   const thanks='¡Gracias por ser parte de esta causa!',love='Bigotes te lo agradece con todo su corazón';
-  txt(thanks,36,H-70,{size:36,weight:700,family:HAND,color:C.cream});
-  heart(36+width(thanks,36,700,HAND)+24,H-82,26,C.berry,10);
-  txt(love,36,H-30,{size:23,weight:500,family:HAND,color:C.sunLight});
-  heart(36+width(love,23,500,HAND)+18,H-38,17,C.sunLight,-8);
-  paw(956,H-84,46,C.sun,16);
-  txt(`Actualizado: ${new Date().toLocaleDateString('es-CO',{timeZone:'America/Bogota'})}`,988,H-16,{size:14,weight:500,color:'rgba(255,248,234,.7)',align:'right'});
+  txt(thanks,36,H-62,{size:34,weight:700,family:HAND,color:C.cream});
+  heart(36+width(thanks,34,700,HAND)+22,H-73,24,C.berry,10);
+  txt(love,36,H-24,{size:22,weight:500,family:HAND,color:C.sunLight});
+  heart(36+width(love,22,500,HAND)+17,H-32,16,C.sunLight,-8);
+  paw(956,H-70,44,C.sun,16);
+  txt(`Actualizado: ${new Date().toLocaleDateString('es-CO',{timeZone:'America/Bogota'})}`,988,H-10,{size:14,weight:500,color:'rgba(255,248,234,.7)',align:'right'});
   return canvas;
 }
 // La página muestra el mismo flyer que se descarga, siempre al día con los números vendidos.
