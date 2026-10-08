@@ -141,7 +141,7 @@ async function createFlyer(){
   ctx.beginPath();ctx.moveTo(X+mottoW*.35,326);ctx.quadraticCurveTo(X+mottoW*.7,318,X+mottoW+6,320);ctx.stroke();
   rich([
     {text:'Bigotes',weight:800,family:TITLE,color:C.ink},
-    {text:'es un compañero fiel, cariñoso y lleno de vida. Tiene 7 años y, poco a poco, ha ido perdiendo la visión debido a unas cataratas que han aparecido en sus ojos desde hace 2 años. Además, sus ojitos se mantienen irritados por un problema que aún estamos tratando de entender.',weight:500,family:TITLE,color:C.ink}
+    {text:'es un compañero fiel, cariñoso y lleno de vida. Tiene 7 años y, poco a poco, ha ido perdiendo la visión debido a unas cataratas que han aparecido en sus ojos desde hace 2 años. Además, sus ojitos se mantienen irritados. Por todo esto, estamos llevando un tratamiento que es un poco costoso, y necesitamos de tu\u00a0apoyo.',weight:500,family:TITLE,color:C.ink}
   ],X,366,COL,21,30);
 
   // 4. Cinta con los datos de la rifa (Bigotes se apoya sobre ella).
@@ -180,7 +180,7 @@ async function createFlyer(){
 
   // 5. Para qué es la rifa: una nota escrita a mano.
   const note=[
-    {text:'Esta rifa es una forma de ayudarlo a tener los exámenes que necesita para cuidar su vista y descubrir la causa de sus cataratas.',weight:600,family:HAND,color:C.ink},
+    {text:'Esta rifa es una forma de ayudarlo a tener los exámenes que necesita para cuidar su vista.',weight:600,family:HAND,color:C.ink},
     {text:'¡Tu apoyo hace la diferencia!',weight:700,family:HAND,color:C.berry}
   ];
   const NX=36,NW=W-72,NY=924,padL=84,size=24,line=35;
@@ -206,18 +206,18 @@ async function createFlyer(){
     txt(label,x+42,T+38,{size:20,weight:500,family:HAND,color:C.inkSoft});
   };
   legend(38,false,'Disponible');legend(212,true,'Vendido');
-  const SX=28,SY=T+56,SW=968,SH=462;
+  const SX=28,SY=T+56,SW=968,SH=491;
   turn(SX+SW/2,SY+SH/2,-.7,()=>{
     ctx.save();ctx.shadowColor='rgba(120,74,10,.22)';ctx.shadowBlur=26;ctx.shadowOffsetY=10;
     ctx.fillStyle=C.sheet;ctx.beginPath();ctx.roundRect(-SW/2,-SH/2,SW,SH,10);ctx.fill();ctx.restore();
     const gx=-SW/2+(SW-(9*94+80))/2,gy=-SH/2+14;
     for(let i=0;i<100;i++){
-      const n=String(i).padStart(2,'0'),x=gx+(i%10)*94,y=gy+Math.floor(i/10)*44,isSold=Boolean(data[n]);
-      ctx.beginPath();ctx.roundRect(x,y,80,38,19);
+      const n=String(i).padStart(2,'0'),x=gx+(i%10)*94,y=gy+Math.floor(i/10)*47,isSold=Boolean(data[n]);
+      ctx.beginPath();ctx.roundRect(x,y,80,40,20);
       if(isSold){ctx.fillStyle=C.berry;ctx.fill()}
       else{ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle='rgba(31,42,92,.3)';ctx.lineWidth=2;ctx.stroke()}
-      txt(n,x+(isSold?34:40),y+28,{size:25,weight:700,color:isSold?C.cream:C.ink,align:'center'});
-      if(isSold)heart(x+62,y+19,15,C.cream);
+      txt(n,x+(isSold?34:40),y+29,{size:25,weight:700,color:isSold?C.cream:C.ink,align:'center'});
+      if(isSold)heart(x+62,y+20,15,C.cream);
     }
     ctx.fillStyle='rgba(251,201,100,.8)';
     turn(-SW/2+30,-SH/2-2,-14,()=>ctx.fillRect(-44,-13,88,26));
