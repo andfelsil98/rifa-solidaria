@@ -15,6 +15,7 @@
 <h1>Por los ojitos de Bigotes</h1>
 <p>Bigotes necesita nuestra ayuda. Tiene cataratas desde hace aproximadamente dos años y sus ojitos también han presentado irritación. La rifa busca reunir el dinero necesario para realizar sus exámenes oftalmológicos y conocer qué está causando su pérdida de visión.</p>
 <p>Con solo una boleta puedes aportar a que Bigotes reciba la atención que necesita. ❤️</p>
+<p>La rifa juega con las <b>dos últimas cifras de la Lotería de Boyacá</b> del 14 de noviembre.</p>
 <p><b>Para comprar</b>, consigna por Nequi al <b>322 319 1629</b> o a la llave <b>@nequiand361</b>.</p>
 <div class="facts"><div class="fact"><b>$15.000</b><span>por número</span></div><div class="fact"><b>$500.000</b><span>premio</span></div><div class="fact"><b>14 nov.</b><span>día del sorteo</span></div></div>
 </div>
@@ -198,19 +199,26 @@ async function createFlyer(){
 
   // 6. Números: una hoja pegada con cinta.
   const sold=Array.from({length:100},(_,i)=>String(i).padStart(2,'0')).filter(n=>data[n]).length;
-  const T=NY+NH+66;
+  const T=NY+NH+62;
   txt('Números de la rifa',36,T,{size:52,weight:800});
   txt(`${sold} de 100 vendidos`,988,T-16,{size:24,weight:700,align:'right'});
   ctx.fillStyle=C.cream;ctx.strokeStyle=C.ink;ctx.lineWidth=2;
   ctx.beginPath();ctx.roundRect(748,T-2,240,16,8);ctx.fill();ctx.stroke();
   if(sold){ctx.fillStyle=C.berry;ctx.beginPath();ctx.roundRect(750,T,Math.max(12,236*sold/100),12,6);ctx.fill()}
+  // Leyenda a la derecha, bajo la barra de vendidos.
+  const legendW=label=>42+width(label,19,500,HAND);
   const legend=(x,isSold,label)=>{
-    ctx.beginPath();ctx.roundRect(x,T+22,34,18,9);
+    ctx.beginPath();ctx.roundRect(x,T+24,34,18,9);
     if(isSold){ctx.fillStyle=C.berry;ctx.fill()}else{ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle='rgba(31,42,92,.45)';ctx.lineWidth=2;ctx.stroke()}
-    txt(label,x+42,T+38,{size:20,weight:500,family:HAND,color:C.inkSoft});
+    txt(label,x+42,T+40,{size:19,weight:500,family:HAND,color:C.inkSoft});
   };
-  legend(38,false,'Disponible');legend(212,true,'Vendido');
-  const SX=28,SY=T+56,SW=968,SH=491;
+  const legendX=988-legendW('Disponible')-18-legendW('Vendido');
+  legend(legendX,false,'Disponible');legend(legendX+legendW('Disponible')+18,true,'Vendido');
+  // Con qué juega la rifa, en una sola línea bajo el título.
+  const lotto=[{text:'Juega con las dos últimas cifras de la',weight:600,family:HAND,color:C.ink},{text:'Lotería de Boyacá',weight:700,family:HAND,color:C.berry}];
+  const lottoW=rich(lotto,0,0,1e4,22,30,false).x-width(' ',22,700,HAND),lottoSize=Math.min(22,22*(legendX-24-38)/lottoW);
+  rich(lotto,38,T+42,1e4,lottoSize,30);
+  const SX=28,SY=T+72,SW=968,SH=491;
   turn(SX+SW/2,SY+SH/2,-.7,()=>{
     ctx.save();ctx.shadowColor='rgba(120,74,10,.22)';ctx.shadowBlur=26;ctx.shadowOffsetY=10;
     ctx.fillStyle=C.sheet;ctx.beginPath();ctx.roundRect(-SW/2,-SH/2,SW,SH,10);ctx.fill();ctx.restore();
