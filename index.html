@@ -29,8 +29,8 @@
 <div id="grid" class="grid" style="margin-top:14px"></div>
 <div id="multiBar" class="multi-bar" hidden><span id="multiInfo"></span><button class="btn primary" id="multiGo" disabled>Registrar comprador</button></div>
 <div class="notice" style="margin-top:22px"><b>¿Cómo participar?</b><br>Selecciona un número disponible, registra el nombre y celular de la persona que lo compra y marca si ya pagó o si queda pendiente. Si alguien compra varios, toca «Varios números para una persona», elige sus números y regístralo una sola vez. Los datos quedan guardados en este dispositivo.</div>
-<div class="admin"><button class="btn primary" id="imageDownload">📸 Descargar imagen actualizada</button><button class="btn secondary" id="csv">Descargar informe CSV</button><button class="btn secondary" id="json">Respaldar datos JSON</button><button class="btn danger" id="clear">Borrar todos los datos</button></div>
-<p class="small">Los números y compradores se almacenan localmente en el navegador mediante localStorage. Si publicas esta página en GitHub Pages, cada dispositivo tendrá su propio almacenamiento.</p>
+<div class="admin"><button class="btn primary" id="imageDownload">📸 Descargar imagen actualizada</button><button class="btn secondary" id="csv">Descargar informe CSV</button><button class="btn secondary" id="json">Respaldar datos JSON</button><button class="btn secondary" id="importJson">Cargar respaldo JSON</button><input type="file" id="importFile" accept=".json,application/json" hidden><button class="btn danger" id="clear">Borrar todos los datos</button></div>
+<p class="small">Los números y compradores se guardan solo en este navegador, así que cada dispositivo tiene sus propios datos. Para pasarlos a otro dispositivo, descarga aquí el respaldo JSON y cárgalo allá con «Cargar respaldo JSON».</p>
 </section>
 </main>
 <footer>Gracias por ayudar a Bigotes 🐾</footer>
@@ -292,7 +292,18 @@ document.getElementById('imageDownload').onclick=async()=>{
   finally{button.disabled=false;button.textContent='📸 Descargar imagen actualizada'}
 };
 document.getElementById('csv').onclick=()=>{let rows=[['Numero','Nombre','Celular','Estado de pago','Fecha registro','Fecha pago','Comentario']];Object.entries(data).sort().forEach(([n,x])=>rows.push([n,x.name,x.phone,x.paid?'Pagado':'Pendiente',x.createdAt||'',x.paidAt||'',x.note||'']));download('rifa-bigotes-informe.csv',rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')};
-document.getElementById('json').onclick=()=>download('rifa-bigotes-respaldo.json',JSON.stringify(data,null,2),'application/json');
+document.getElementById('json').onclick=()=>{const now=new Date(),day=now.toLocaleDateString('sv-SE',{timeZone:'America/Bogota'}),time=now.toLocaleTimeString('sv-SE',{timeZone:'America/Bogota',hour:'2-digit',minute:'2-digit'}).replace(':','h');download(`rifa-bigotes-respaldo-${day}-${time}.json`,JSON.stringify(data,null,2),'application/json')};
+// Cargar un respaldo JSON, por ejemplo el que se descargó en otro dispositivo.
+const BACKUP_FIELDS=['name','phone','paid','paidAt','createdAt','updatedAt','note'];
+function cleanBackup(raw){const out={};if(raw&&typeof raw==='object'&&!Array.isArray(raw))for(const [n,x] of Object.entries(raw)){if(!/^\d{2}$/.test(n)||!x||typeof x.name!=='string'||typeof x.phone!=='string')continue;const r={};BACKUP_FIELDS.forEach(f=>{if(x[f]!==undefined&&x[f]!==null&&x[f]!=='')r[f]=f==='paid'?Boolean(x[f]):String(x[f])});out[n]=r}return out}
+// Última vez que se tocó un número: al combinar, gana la versión más reciente.
+const lastChange=x=>[x.createdAt,x.updatedAt,x.paidAt].filter(Boolean).sort().pop()||'';
+function importBackup(file){const reader=new FileReader();reader.onload=()=>{let incoming={};try{incoming=cleanBackup(JSON.parse(reader.result))}catch(e){}const total=Object.keys(incoming).length;if(!total){alert('Ese archivo no parece un respaldo de la rifa.');return}
+  const paid=Object.values(incoming).filter(x=>x.paid).length,here=Object.keys(data).length,finish=text=>{close();save();show('Respaldo cargado',text,'',[{label:'Listo',kind:'primary',fn:close}])};
+  show('Cargar respaldo',`El archivo tiene <b>${total}</b> ${total===1?'número registrado':'números registrados'} (${paid} ${paid===1?'pagado':'pagados'}). En este dispositivo hay <b>${here}</b>.`,`<p class="small" style="line-height:1.5"><b>Combinar</b> agrega los números que no hay aquí y, si un número está en los dos lados, se queda con el cambio más reciente.<br><b>Reemplazar todo</b> borra lo que hay en este dispositivo y deja exactamente lo del archivo.</p>`,[{label:'Cancelar',fn:close},{label:'Reemplazar todo',kind:'danger',fn:()=>{data=incoming;finish(`Este dispositivo ahora tiene exactamente los ${total} números del respaldo.`)}},{label:'Combinar',kind:'primary',fn:()=>{let added=0,updated=0;for(const [n,x] of Object.entries(incoming)){if(!data[n]){data[n]=x;added++}else if(lastChange(x)>lastChange(data[n])){data[n]=x;updated++}}finish(`${added===1?'Se agregó':'Se agregaron'} <b>${added}</b> ${added===1?'número':'números'} y ${updated===1?'se actualizó':'se actualizaron'} <b>${updated}</b>. Los demás ya estaban al día.`)}}])};reader.readAsText(file)}
+const importFile=document.getElementById('importFile');
+document.getElementById('importJson').onclick=()=>importFile.click();
+importFile.onchange=()=>{const file=importFile.files[0];importFile.value='';if(file)importBackup(file)};
 document.getElementById('clear').onclick=()=>show('Borrar todos los datos','Esta acción eliminará todos los números vendidos y compradores guardados en este navegador. <b>No se puede deshacer.</b>','',[{label:'Cancelar',fn:close},{label:'Sí, borrar todo',kind:'danger',fn:()=>{data={};close();save()}}]);
 render();
 </script></body></html>
